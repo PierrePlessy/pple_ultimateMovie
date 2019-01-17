@@ -1,6 +1,8 @@
 {
   "name": "pple_ultimateMovie",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular",
   "id": "3f843639"
 }

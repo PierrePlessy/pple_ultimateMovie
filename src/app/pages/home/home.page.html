@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Ionic Blank
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding class="card-background-page">
+  <ion-searchbar (ionInput)="getMovies($event)"></ion-searchbar>
+
+  <ion-list *ngFor="let data of displayData">
+
+    <ion-card>
+      <img src="{{data.Poster}}" />
+      <div class="card-title">{{data.Title}}</div>
+      <div class="card-subtitle">{{data.Type}}</div>
+      <div class="card-subtitle">{{data.Year}}</div>
+    </ion-card>
+
+  </ion-list>
+
+</ion-content>
