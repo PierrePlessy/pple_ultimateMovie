@@ -18,7 +18,7 @@ export class HomePage {
   }
 
   getMovies(term) {
-    this.ombService.search(term.target.value)
+    this.ombService.search(term.target.value, "")
       .subscribe(x => {
         console.log(x["Search"]);
         this.displayData = x["Search"];

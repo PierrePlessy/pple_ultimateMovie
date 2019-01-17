@@ -23,3 +23,18 @@
     }
   
   }
+
+.overlay-card {
+  background-color: rgba(0,0,0,0.7);
+  color: white;
+}
+
+.subtitle {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.image-card {
+  margin-bottom: -50%;
+}

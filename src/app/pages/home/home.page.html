@@ -6,16 +6,20 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding class="card-background-page">
-  <ion-searchbar (ionInput)="getMovies($event)"></ion-searchbar>
+<ion-content padding >
+  <ion-searchbar showCancelButton=true (ionInput)="getMovies($event)"></ion-searchbar>
 
   <ion-list *ngFor="let data of displayData">
 
     <ion-card>
-      <img src="{{data.Poster}}" />
-      <div class="card-title">{{data.Title}}</div>
-      <div class="card-subtitle">{{data.Type}}</div>
-      <div class="card-subtitle">{{data.Year}}</div>
+      <img class="image-card" src="{{data.Poster}}" />
+      <ion-card-content class="overlay-card">
+        <div class="card-title">{{data.Title}}</div>
+        <div class="subtitle">
+          <div>{{data.Type}}</div>
+          <div>{{data.Year}}</div>
+        </div>
+      </ion-card-content>     
     </ion-card>
 
   </ion-list>

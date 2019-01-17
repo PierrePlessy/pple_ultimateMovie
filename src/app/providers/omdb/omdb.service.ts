@@ -11,7 +11,7 @@ export class OmdbService {
 
   constructor(private http : HTTP, private httpCLient : HttpClient) { }
 
-  search(term) {
-    return this.httpCLient.get(this.baseURL+ this.apiKey + "&s=" + term)
+  search(term, type) {
+    return this.httpCLient.get(this.baseURL+ this.apiKey + "&type=" + type + "&s=" + term)
   }
 }
