@@ -14,4 +14,8 @@ export class OmdbService {
   search(term, type) {
     return this.httpCLient.get(this.baseURL+ this.apiKey + "&type=" + type + "&s=" + term)
   }
+
+  findById(id) {
+    return this.httpCLient.get(this.baseURL + this.apiKey + "&i=" + id)
+  }
 }
