@@ -1,9 +1,65 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Detail</ion-title>
+    <ion-back-button></ion-back-button>
+    <ion-title>{{info.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <div class="detail" *ngIf="isFilm; else elseBlock">
+    <img src="{{info.poster}}" />
+    <div class="principale">
+      <h2>{{info.title}}</h2>
+      <div>
+        <div>{{info.year}}</div>
+        <div>{{info.rated}}</div>
+        <div>{{info.runtime}}</div>
+      </div>
+    </div>
+    <div class="secondaire">
+      <div>{{info.plot}}</div>
+      <div>Genre : {{info.genre}}</div>
+      <div>Product : {{info.production}}</div>
+      <div>Actors : {{info.actors}}</div>
+      <div>Awards : {{info.awards}}</div>
+      <div>Note : {{info.imdbRating}} by {{info.imdbVotes}} votes</div>
+      <div><a href="{{info.website}}">{{info.website}}</a></div>
+    </div>
+  </div>
+
+  <ng-template #elseBlock>
+    <div class="detail">
+      <img src="{{info.poster}}" />
+      <div class="principale">
+        <h2>{{info.title}}</h2>
+        <div>
+          <div>{{info.year}}</div>
+          <div>{{info.rated}}</div>
+          <div>{{info.runtime}}</div>
+        </div>
+      </div>
+      <div class="secondaire">
+        <div>{{info.plot}}</div>
+        <div>Genre : {{info.genre}}</div>
+        <div>Product : {{info.production}}</div>
+        <div>Actors : {{info.actors}}</div>
+        <div>Awards : {{info.awards}}</div>
+        <div>Note : {{info.imdbRating}} by {{info.imdbVotes}} votes</div>
+        <div><a href="{{info.website}}">{{info.website}}</a></div>
+      </div>
+    </div>
+
+    <ion-list *ngFor="let season of seasons">
+      <ion-item>
+        <b>{{season.Title}} : Season {{season.Season}}</b>
+      </ion-item>
+      <ion-item class="name-episode" *ngFor="let episode of season.Episodes">
+          <div>
+            {{episode.Title}}
+          </div>
+      </ion-item>
+    </ion-list>
+
+  </ng-template>
 
 </ion-content>

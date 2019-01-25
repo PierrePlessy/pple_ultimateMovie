@@ -14,4 +14,8 @@ export class PosterService {
   getPoster(id, height) {
     return this.httpCLient.get(this.baseURL+ this.apiKey + "&i=" + id + "&h=" + height)
   }
+
+  getUrl(id, height) {
+    return this.baseURL+ this.apiKey + "&i=" + id + "&h=" + height;
+  }
 }

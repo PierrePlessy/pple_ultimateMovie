@@ -18,4 +18,8 @@ export class OmdbService {
   findById(id) {
     return this.httpCLient.get(this.baseURL + this.apiKey + "&i=" + id)
   }
+
+  getOneSeason(id, n) {
+    return this.httpCLient.get(this.baseURL + this.apiKey + "&i=" + id + "&Season=" + n)
+  }
 }

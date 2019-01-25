@@ -11,15 +11,15 @@
 
   <ion-list *ngFor="let data of displayData">
 
-    <ion-card >
-      <img class="image-card" src="{{data.Poster}}" />
-      <ion-card-content class="overlay-card">
-        <div class="card-title">{{data.Title}}</div>
-        <div class="subtitle">
-          <div>{{data.Type}}</div>
-          <div>{{data.Year}}</div>
-        </div>
-      </ion-card-content>
+    <ion-card [routerLink]="'/detail/' + data.imdbID" routerDirection="forward">
+        <img class="image-card" src="{{data.Poster}}" />
+        <ion-card-content class="overlay-card">
+          <div class="card-title">{{data.Title}}</div>
+          <div class="subtitle">
+            <div>{{data.Type}}</div>
+            <div>{{data.Year}}</div>
+          </div>
+        </ion-card-content>
     </ion-card>
 
   </ion-list>

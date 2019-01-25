@@ -13,8 +13,7 @@ export class HomePage {
   displayData: [{}];
 
   constructor(private ombService: OmdbService, 
-    private posterService: PosterService,
-    public nav : NavController) { }
+    private posterService: PosterService) { }
 
   ngOnInit() {
     this.displayData = [{}];
@@ -26,9 +25,5 @@ export class HomePage {
         console.log(x["Search"]);
         this.displayData = x["Search"];
       });
-  }
-
-  cardToDetail(id) {
-    this.nav.navigateForward(['detail', {id :id}])
   }
 }
