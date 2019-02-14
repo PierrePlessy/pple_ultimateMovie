@@ -2,7 +2,7 @@ import { PosterService } from 'src/app/providers/poster/poster.service';
 import { OmdbService } from './../../providers/omdb/omdb.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {forkJoin} from 'rxjs';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-detail',
@@ -13,14 +13,15 @@ export class DetailPage implements OnInit {
   info: {};
   isFilm = true;
   seasons = [];
+  poster: String;
 
   constructor(private thisRouter: ActivatedRoute,
-    private ombdbService: OmdbService,
+    private omdbService: OmdbService,
     private posterService: PosterService) { }
 
   ngOnInit() {
     this.thisRouter.params.subscribe(params => {
-      this.ombdbService.findById(params.id)
+      this.omdbService.findById(params.id)
         .subscribe(res => {
           console.log(res);
 
@@ -28,7 +29,6 @@ export class DetailPage implements OnInit {
             title: res["Title"],
             year: res["Year"],
             rated: res["Rated"],
-            poster: this.posterService.getUrl(params.id, 1500),
             plot: res["Plot"],
             genre: res["Genre"],
             runtime: res["Runtime"],
@@ -37,6 +37,7 @@ export class DetailPage implements OnInit {
             awards: res["Awards"],
             imdbRating: res["imdbRating"],
             imdbVotes: res["imdbVotes"],
+            imdbID: res["imdbID"],
             website: res["Website"],
           };
 
@@ -46,23 +47,18 @@ export class DetailPage implements OnInit {
             this.info["totalSeasons"] = res["totalSeasons"];
             let foo = []
             for (let i = 1; i <= parseInt(this.info["totalSeasons"]); i++) {
-              foo.push(this.ombdbService.getOneSeason(params.id, i));
+              //foo.push(this.omdbService.getOneSeason(params.id, i));
+              foo.push({Season: i})
             }
-            forkJoin(foo).subscribe(response => {
-              console.log(response);
-              this.seasons = response;
-            })
+            //forkJoin(foo).subscribe(response => {
+            //  console.log(response);
+            //  this.seasons = response;
+            //})
+            this.seasons = foo;
           }
         })
+      this.poster = this.posterService.getUrl(params.id, 1500)
     })
   }
-
-  toggleGroup(group) {
-    group.show = !group.show;
-  };
-
-  isGroupShown(group) {
-    return group.show;
-  };
 
 }

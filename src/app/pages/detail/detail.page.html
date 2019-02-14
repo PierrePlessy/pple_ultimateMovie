@@ -7,7 +7,7 @@
 
 <ion-content padding>
   <div class="detail" *ngIf="isFilm; else elseBlock">
-    <img src="{{info.poster}}" />
+    <img src="{{poster}}" />
     <div class="principale">
       <h2>{{info.title}}</h2>
       <div>
@@ -29,7 +29,7 @@
 
   <ng-template #elseBlock>
     <div class="detail">
-      <img src="{{info.poster}}" />
+      <img src="{{poster}}" />
       <div class="principale">
         <h2>{{info.title}}</h2>
         <div>
@@ -50,14 +50,14 @@
     </div>
 
     <ion-list *ngFor="let season of seasons">
-      <ion-item>
-        <b>{{season.Title}} : Season {{season.Season}}</b>
+      <ion-item [routerLink]="'/season/' + info.imdbID + '/' + season.Season" routerDirection="forward">
+        <b>Season {{season.Season}}</b>
       </ion-item>
-      <ion-item class="name-episode" *ngFor="let episode of season.Episodes">
+      <!--<ion-item class="name-episode" *ngFor="let episode of season.Episodes">
           <div>
             {{episode.Title}}
           </div>
-      </ion-item>
+      </ion-item>-->
     </ion-list>
 
   </ng-template>

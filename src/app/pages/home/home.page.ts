@@ -2,7 +2,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { OmdbService } from './../../providers/omdb/omdb.service';
 import { Component } from '@angular/core';
 import { PosterService } from 'src/app/providers/poster/poster.service';
-import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
