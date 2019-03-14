@@ -1,3 +1,4 @@
+import { Media } from './../../models/media';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 
@@ -7,40 +8,55 @@ import { Storage } from '@ionic/storage';
 export class StorageService {
 
   constructor(private storageApp: Storage) {
-    console.log('Hello StorageProvider Provider');
   }
 
-  public async getList() {
-    return await this.storageApp.get('favoris')
+  public getList() {
+    return this.storageApp.get('favoris')
   }
 
-  public add(id: string) {
-    this.storageApp.get('favoris').then(val => {
+  private isIncludes(array, media) : Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      let bool = false;
+      array.forEach(element => {
+        if (element["imdbID"] == media["imdbID"]) bool = true;
+      });
+      resolve(bool);
+    })
+  }
+
+  public add(media: Media) {
+    this.storageApp.get('favoris').then(async val => {
       if (!val) {
-        const fav = [];
-        fav.push(id);
+        const fav = new Array<Media>();
+        fav.push(media);
         this.storageApp.set('favoris', fav);
         return
       }
-      if (val.includes(id)) return
-      val.push(id);
+      if (await this.isIncludes(val, media)) return
+      val.push(media);
       this.storageApp.set('favoris', val);
     })
   }
 
-  public isFavoris(id: string) : Promise<boolean>{
+  public isFavoris(media: Media) : Promise<boolean>{
     return new Promise((resolve, reject) => {
       this.storageApp.get('favoris').then(val => {
-        if(val) resolve(val.includes(id));
+        if(val) resolve(this.isIncludes(val, media));
         else resolve(false);
       })
     })
   }
 
-  public remove(id: string) {
-    this.storageApp.get('favoris').then(val => {
-      if (!val || !val.includes(id)) return
-      val.splice(val.indexOf(id), 1);
+  public remove(media: Media) {
+    this.storageApp.get('favoris').then(async val => {
+      if (!val || await !this.isIncludes(val, media)) return
+      let index = -1;
+      val.forEach((element, i) => {
+        if(element["imdbID"] == media["imdbID"]) index = i;
+      });
+      if(index == -1) return
+      val.splice(index, 1);
+      console.log(val);
       this.storageApp.set('favoris', val);
     })
   }

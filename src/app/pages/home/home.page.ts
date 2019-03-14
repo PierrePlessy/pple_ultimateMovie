@@ -42,7 +42,8 @@ export class HomePage {
           });
 
           this.displayData.forEach(async element => {
-            element["isFavoris"] = await this.storage.isFavoris(element["imdbID"]);
+            element["isFavoris"] = await this.storage.isFavoris(element);
+            console.log( element["isFavoris"])
           })
         });
     })

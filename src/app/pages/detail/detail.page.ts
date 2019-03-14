@@ -30,24 +30,25 @@ export class DetailPage implements OnInit {
     this.thisRouter.params.subscribe(params => {
       this.omdbService.findById(params.id)
         .subscribe(async res => {
-          this.storage.isFavoris(res["imdbID"])
+          if (res["Type"] == "movie") {
+            this.isSerie = false;
+            this.info = new Movie(res);
+          }
+          else {
+            this.info = new Series(res);
+            this.isSerie = true;
+            this.seasons = [];
+            for (let i = 1; i <= this.info["totalSeasons"]; i++) {
+              this.seasons.push({ seasonNb: i })
+            }
+            //forkJoin(foo).subscribe(response => {
+            //  console.log(response);
+            //  this.seasons = response;
+            //})
+          }
+          this.storage.isFavoris(this.info)
             .then(isFav => {
-              if (res["Type"] == "movie") {
-                this.isSerie = false;
-                this.info = new Movie(res);
-              }
-              else {
-                this.info = new Series(res);
-                this.isSerie = true;
-                this.seasons = [];
-                for (let i = 1; i <= this.info["totalSeasons"]; i++) {
-                  this.seasons.push({ seasonNb: i })
-                }
-                //forkJoin(foo).subscribe(response => {
-                //  console.log(response);
-                //  this.seasons = response;
-                //})
-              }
+              console.log(isFav)
               this.isFavori = isFav;
             })
         })
@@ -55,15 +56,15 @@ export class DetailPage implements OnInit {
     })
   }
 
-  addFavoris(id) {
-    console.log("New Favori", id);
-    this.storage.add(id);
+  addFavoris() {
+    console.log("New Favori", this.info);
+    this.storage.add(this.info);
     this.isFavori = true;
   }
 
-  removeFavoris(id) {
-    console.log("Delete Favori", id);
-    this.storage.remove(id);
+  removeFavoris() {
+    console.log("Delete Favori", this.info);
+    this.storage.remove(this.info);
     this.isFavori = false;
   }
 

@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: 'detail/:id', loadChildren: './pages/detail/detail.module#DetailPageModule' },
   { path: 'season/:id/:season', loadChildren: './pages/season/season.module#SeasonPageModule' },
   { path: 'episode/:id', loadChildren: './pages/episode/episode.module#EpisodePageModule' },
- { path: 'tabs', loadChildren: './pages/tabs/tabs.module#TabsPageModule' },
+  { path: 'tabs', loadChildren: './pages/tabs/tabs.module#TabsPageModule' },
+  //{ path: 'favorites', loadChildren: './pages/favorites/favorites.module#FavoritesPageModule' },
 ];
 
 @NgModule({

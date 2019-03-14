@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Favorites</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="displayData;">
+    <ion-list *ngFor="let data of displayData">
+
+      <ion-card [routerLink]="'/detail/' + data.imdbID" routerDirection="forward">
+        <img class="image-card" src="{{data.poster}}" />
+        <ion-card-content class="overlay-card">
+          <div class="card-title">{{data.title}}</div>
+          <div class="subtitle">
+            <div>{{data.type}}</div>
+            <div>{{data.year}}</div>
+            <div></div>
+            <ng-template>
+              <ion-icon name="star"></ion-icon>
+            </ng-template>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+    </ion-list>
+  </div>
+</ion-content>
