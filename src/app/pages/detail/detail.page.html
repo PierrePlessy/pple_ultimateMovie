@@ -1,19 +1,19 @@
 <ion-header>
   <ion-toolbar>
     <ion-back-button></ion-back-button>
-    <ion-title>{{info.title}}</ion-title>
+    <ion-title *ngIf="info;">{{info.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <div class="detail">
+  <div class="detail" *ngIf="info;">
     <img src="{{poster}}" />
     <div class="principale">
       <h2>{{info.title}}</h2>
       <div>
         <div>{{info.year}}</div>
         <div>{{info.rated}}</div>
-        <div>{{info.runtime}}</div>
+        <div *ngIf="!isSerie;">{{info.runtime}}</div>
         <ng-template [ngIf]="isFavori" [ngIfElse]="elseBlock">
           <ion-icon name="star" (click)="removeFavoris(imdbId)"></ion-icon>
         </ng-template>
@@ -25,7 +25,7 @@
     <div class="secondaire">
       <div>{{info.plot}}</div>
       <div>Genre : {{info.genre}}</div>
-      <div>Product : {{info.production}}</div>
+      <div *ngIf="!isSerie;">Product : {{info.production}}</div>
       <div>Actors : {{info.actors}}</div>
       <div>Awards : {{info.awards}}</div>
       <div>Note : {{info.imdbRating}} by {{info.imdbVotes}} votes</div>
@@ -34,8 +34,8 @@
 
     <div *ngIf="isSerie;">
       <ion-list *ngFor="let season of seasons">
-        <ion-item [routerLink]="'/season/' + info.imdbID + '/' + season.Season" routerDirection="forward">
-          <b>Season {{season.Season}}</b>
+        <ion-item [routerLink]="'/season/' + info.imdbID + '/' + season.seasonNb" routerDirection="forward">
+          <b>Season {{season.seasonNb}}</b>
         </ion-item>
       </ion-list>
     </div>

@@ -1,9 +1,12 @@
+import { Movie } from './../../models/movie';
+import { Media } from './../../models/media';
 import { HttpClientModule } from '@angular/common/http';
 import { OmdbService } from './../../providers/omdb/omdb.service';
 import { Component } from '@angular/core';
 import { PosterService } from 'src/app/providers/poster/poster.service';
 import { ActivatedRoute } from '@angular/router';
 import { StorageService } from './../../providers/storage/storage.service';
+import { Series } from 'src/app/models/series';
 
 
 @Component({
@@ -12,7 +15,7 @@ import { StorageService } from './../../providers/storage/storage.service';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-  displayData: [{}];
+  displayData: Array<Media>;
   public selected = 'movie';
 
   constructor(private ombService: OmdbService,
@@ -21,7 +24,6 @@ export class HomePage {
     private storage: StorageService) { }
 
   ngOnInit() {
-    this.displayData = [{}];
     this.thisRouter.params.subscribe(params => {
       this.selected = params.type;
     })
@@ -31,7 +33,14 @@ export class HomePage {
     this.thisRouter.params.subscribe(params => {
       this.ombService.search(term.target.value, params.type)
         .subscribe(x => {
-          this.displayData = x["Search"];
+          if(!x["Search"] || x["Search"] == []) return
+
+          this.displayData = [];
+          x["Search"].forEach(element => {
+            if (this.selected == "movie") this.displayData.push(new Movie(element));
+            else this.displayData.push(new Series(element))
+          });
+
           this.displayData.forEach(async element => {
             element["isFavoris"] = await this.storage.isFavoris(element["imdbID"]);
           })

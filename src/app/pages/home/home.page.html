@@ -8,27 +8,28 @@
 
 <ion-content padding>
   <ion-searchbar showCancelButton=true (ionInput)="getMovies($event)"></ion-searchbar>
+  <div *ngIf="displayData;">
+    <ion-list *ngFor="let data of displayData">
 
-  <ion-list *ngFor="let data of displayData">
-
-    <ion-card [routerLink]="'/detail/' + data.imdbID" routerDirection="forward">
-      <img class="image-card" src="{{data.Poster}}" />
-      <ion-card-content class="overlay-card">
-        <div class="card-title">{{data.Title}}</div>
-        <div class="subtitle">
-          <div>{{data.Type}}</div>
-          <div>{{data.Year}}</div>
-          <div></div>
-          <ng-template [ngIf]="data.isFavoris" [ngIfElse]="elseBlock">
-            <ion-icon name="star"></ion-icon>
-          </ng-template>
-          <ng-template #elseBlock>
-            <ion-icon name="star-outline"></ion-icon>
-          </ng-template>
-        </div>
-      </ion-card-content>
-    </ion-card>
-
-  </ion-list>
+      <ion-card [routerLink]="'/detail/' + data.imdbID" routerDirection="forward">
+        <img class="image-card" src="{{data.poster}}" />
+        <ion-card-content class="overlay-card">
+          <div class="card-title">{{data.title}}</div>
+          <div class="subtitle">
+            <div>{{data.type}}</div>
+            <div>{{data.year}}</div>
+            <div></div>
+            <ng-template [ngIf]="data.isFavoris" [ngIfElse]="elseBlock">
+              <ion-icon name="star"></ion-icon>
+            </ng-template>
+            <ng-template #elseBlock>
+              <ion-icon name="star-outline"></ion-icon>
+            </ng-template>
+          </div>
+        </ion-card-content>
+      </ion-card>
+      
+    </ion-list>
+  </div>
 
 </ion-content>

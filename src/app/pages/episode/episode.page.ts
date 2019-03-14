@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OmdbService } from './../../providers/omdb/omdb.service';
 import { ActivatedRoute } from '@angular/router';
+import { Episode } from 'src/app/models/episode';
 
 
 @Component({
@@ -9,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./episode.page.scss'],
 })
 export class EpisodePage implements OnInit {
-  info = {}
+  info: Episode;
   constructor(private thisRouter: ActivatedRoute,
     private omdbService : OmdbService) { }
 
@@ -17,19 +18,7 @@ export class EpisodePage implements OnInit {
     this.thisRouter.params.subscribe(params => {
       this.omdbService.findById(params.id)
         .subscribe(res => {
-          this.info = {
-            title: res["Title"],
-            year: res["Year"],
-            rated: res["Rated"],
-            plot: res["Plot"],
-            genre: res["Genre"],
-            runtime: res["Runtime"],
-            actors: res["Actors"],
-            awards: res["Awards"],
-            imdbRating: res["imdbRating"],
-            imdbVotes: res["imdbVotes"],
-            imdbID: res["imdbID"],
-          };
+          this.info = new Episode(res);
         })
     })
   }

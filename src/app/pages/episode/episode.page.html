@@ -1,13 +1,13 @@
 <ion-header>
   <ion-toolbar>
       <ion-back-button></ion-back-button>
-    <ion-title>{{info.title}}</ion-title>
+    <ion-title *ngIf="info;">{{info.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <div class="detail">
-    <img src="{{poster}}" />
+  <div class="detail" *ngIf="info;">
+    <img src="{{info.poster}}" />
     <div class="principale">
       <h2>{{info.title}}</h2>
       <div>
