@@ -3,6 +3,7 @@ import { OmdbService } from './../../providers/omdb/omdb.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
+import { StorageService } from './../../providers/storage/storage.service';
 
 @Component({
   selector: 'app-detail',
@@ -11,18 +12,21 @@ import { forkJoin } from 'rxjs';
 })
 export class DetailPage implements OnInit {
   info: {};
-  isFilm = true;
+  isSerie = true;
   seasons = [];
   poster: String;
+  isFavori = false;
+  imdbId: String;
 
   constructor(private thisRouter: ActivatedRoute,
     private omdbService: OmdbService,
-    private posterService: PosterService) { }
+    private posterService: PosterService,
+    private storage: StorageService) { }
 
   ngOnInit() {
     this.thisRouter.params.subscribe(params => {
       this.omdbService.findById(params.id)
-        .subscribe(res => {
+        .subscribe(async res => {
           console.log(res);
 
           this.info = {
@@ -40,10 +44,14 @@ export class DetailPage implements OnInit {
             imdbID: res["imdbID"],
             website: res["Website"],
           };
-
-          if (res["Type"] == "movie") this.isFilm = true;
+          this.imdbId = res["imdbID"];
+          this.storage.isFavoris(this.info["imdbID"])
+            .then(isFav => {
+              this.isFavori = isFav;
+            })
+          if (res["Type"] == "movie") this.isSerie = false;
           else {
-            this.isFilm = false;
+            this.isSerie = true;
             this.info["totalSeasons"] = res["totalSeasons"];
             let foo = []
             for (let i = 1; i <= parseInt(this.info["totalSeasons"]); i++) {
@@ -56,9 +64,22 @@ export class DetailPage implements OnInit {
             //})
             this.seasons = foo;
           }
+          console.log(this.isFavori)
         })
       this.poster = this.posterService.getUrl(params.id, 1500)
     })
+  }
+
+  addFavoris(id) {
+    console.log("New Favori", id);
+    this.storage.add(id);
+    this.isFavori = true;
+  }
+
+  removeFavoris(id) {
+    console.log("Delete Favori", id);
+    this.storage.remove(id);
+    this.isFavori = false;
   }
 
 }

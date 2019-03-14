@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-back-button></ion-back-button>
+    <ion-title>{{info.title}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="detail">
+    <img src="{{poster}}" />
+    <div class="principale">
+      <h2>{{info.title}}</h2>
+      <div>
+        <div>{{info.year}}</div>
+        <div>{{info.rated}}</div>
+        <div>{{info.runtime}}</div>
+      </div>
+    </div>
+    <div class="secondaire">
+      <div>{{info.plot}}</div>
+      <div>Genre : {{info.genre}}</div>
+      <div>Actors : {{info.actors}}</div>
+      <div>Awards : {{info.awards}}</div>
+      <div>Note : {{info.imdbRating}} by {{info.imdbVotes}} votes</div>
+    </div>
+  </div>
+</ion-content>

@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { PosterService } from './providers/poster/poster.service';
 import { OmdbService } from './providers/omdb/omdb.service';
+import { StorageService } from './providers/storage/storage.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +24,7 @@ import { OmdbService } from './providers/omdb/omdb.service';
     HTTP,
     PosterService,
     OmdbService,
+    StorageService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

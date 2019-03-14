@@ -6,12 +6,12 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-list class="name-episode" *ngFor="let episode of episodes">
-    <ion-item>
-      {{episode.Title}}
-      {{episode.Released}}
-      {{episode.Episode}}
-      {{episode.imdbRating}}
+  <ion-list class="name-episode" *ngFor="let epi of episodes">
+    <ion-item [routerLink]="'/episode/' + epi.imdbID" routerDirection="forward">
+      {{epi.Title}}
+      {{epi.Released}}
+      {{epi.Episode}}
+      {{epi.imdbRating}}
     </ion-item>
 
   </ion-list>
