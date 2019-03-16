@@ -50,13 +50,9 @@ export class StorageService {
   public remove(media: Media) {
     this.storageApp.get('favoris').then(async val => {
       if (!val || await !this.isIncludes(val, media)) return
-      let index = -1;
-      val.forEach((element, i) => {
-        if(element["imdbID"] == media["imdbID"]) index = i;
+      val.forEach((element, index) => {
+        if(element["imdbID"] == media["imdbID"]) val.splice(index, 1);;
       });
-      if(index == -1) return
-      val.splice(index, 1);
-      console.log(val);
       this.storageApp.set('favoris', val);
     })
   }

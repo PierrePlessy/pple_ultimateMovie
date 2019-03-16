@@ -57,13 +57,11 @@ export class DetailPage implements OnInit {
   }
 
   addFavoris() {
-    console.log("New Favori", this.info);
     this.storage.add(this.info);
     this.isFavori = true;
   }
 
   removeFavoris() {
-    console.log("Delete Favori", this.info);
     this.storage.remove(this.info);
     this.isFavori = false;
   }

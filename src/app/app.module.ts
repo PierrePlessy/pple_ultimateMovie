@@ -13,11 +13,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { PosterService } from './providers/poster/poster.service';
 import { OmdbService } from './providers/omdb/omdb.service';
 import { StorageService } from './providers/storage/storage.service';
+import { DownloadService } from './providers/download/download.service';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
   providers: [
     StatusBar,
     SplashScreen,
@@ -25,8 +26,9 @@ import { StorageService } from './providers/storage/storage.service';
     PosterService,
     OmdbService,
     StorageService,
+    DownloadService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
