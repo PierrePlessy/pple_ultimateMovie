@@ -14,7 +14,7 @@ export class StorageService {
     return this.storageApp.get('favoris')
   }
 
-  private isIncludes(array, media) : Promise<boolean>{
+  private isIncludes(array, media): Promise<boolean> {
     return new Promise((resolve, reject) => {
       let bool = false;
       array.forEach(element => {
@@ -38,10 +38,10 @@ export class StorageService {
     })
   }
 
-  public isFavoris(media: Media) : Promise<boolean>{
+  public isFavoris(media: Media): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.storageApp.get('favoris').then(val => {
-        if(val) resolve(this.isIncludes(val, media));
+        if (val) resolve(this.isIncludes(val, media));
         else resolve(false);
       })
     })
@@ -51,13 +51,17 @@ export class StorageService {
     this.storageApp.get('favoris').then(async val => {
       if (!val || await !this.isIncludes(val, media)) return
       val.forEach((element, index) => {
-        if(element["imdbID"] == media["imdbID"]) val.splice(index, 1);;
+        if (element["imdbID"] == media["imdbID"]) val.splice(index, 1);;
       });
       this.storageApp.set('favoris', val);
     })
   }
 
-  public importFavorites(list : JSON) {
-    console.log(list);
+  public importFavorites(list: Array<Object>) {
+    console.log("import !!! ", list);
+    /*const fav = new Array<Object>();
+    fav.push(list);
+    console.log(fav)*/
+    this.storageApp.set('favoris', list);
   }
 }

@@ -27,20 +27,22 @@ export class UploadService {
       if (readySource == "android" || readySource == "cordova") {
         this.fileChooser.open()
           .then(uri => {
-            console.log(uri)
-           
             this.filePath.resolveNativePath(uri)
               .then(url => {
-                console.log(url)
                 const path = url.split('/');
                 const filename = path.pop();
-                const foo = `${path.join("/")}/`
-                console.log(foo, filename);
-                this.file.readAsText(foo, filename)
+                const directory = `${path.join("/")}/`
+                this.file.readAsText(directory, filename)
                   .then(res => {
-                    console.log("yop", res)
-                    if (uri.endsWith(".json")) {
-                      this.storage.importFavorites(JSON.parse(res));
+                    if (url.endsWith(".json")) {
+                      const newFav = new Array<Object>();
+                      let foo = res.split("\n")
+                      console.log(foo)
+                      foo.forEach(element => {
+                        if(element) newFav.push(JSON.parse(element))
+                      })
+                      console.log(newFav)
+                      this.storage.importFavorites(newFav);
                     }
                     /*else if(uri.endsWith(".csv")) {
                       csv2json.fromFile(res).then(resJSON => {

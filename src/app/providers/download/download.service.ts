@@ -25,6 +25,9 @@ export class DownloadService {
         if (res.hasPermission) {
           const upload = this.fileTransfer.create();
           upload.download(file, `${fileRoot.externalRootDirectory}/Download/favorites.${ext}`)
+            .then(foo => {
+              console.log("Download ok");
+            })
         }
       })
     }
@@ -40,9 +43,11 @@ export class DownloadService {
     this.platform.ready().then(readySource => {
       let file = 'data:text/json;charser=utf8,';
       this.storage.getList().then(favList => {
+        console.log(favList)
         favList.forEach(element => {
           file += `${JSON.stringify(element)}\n`;
         });
+        console.log(file)
        this.export(file, 'json', readySource);
       })
     })
