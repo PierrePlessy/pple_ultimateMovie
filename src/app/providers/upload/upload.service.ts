@@ -6,7 +6,7 @@ import { FileChooser } from '@ionic-native/file-chooser/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { FilePath } from '@ionic-native/file-path/ngx';
 
-// import { csv2json } from 'csvtojson';
+import * as csv2json from 'csvtojson';
 
 
 @Injectable({
@@ -19,7 +19,7 @@ export class UploadService {
     private androidPermissions: AndroidPermissions,
     private filePath: FilePath,
     private storage: StorageService,
-    private file : File) { }
+    private file: File) { }
 
   uploadFavorites() {
     console.log("Upload");
@@ -36,26 +36,21 @@ export class UploadService {
                   .then(res => {
                     if (url.endsWith(".json")) {
                       const newFav = new Array<Object>();
-                      let foo = res.split("\n")
-                      console.log(foo)
-                      foo.forEach(element => {
-                        if(element) newFav.push(JSON.parse(element))
+                      res.split("\n").forEach(element => {
+                        if (element) newFav.push(JSON.parse(element))
                       })
-                      console.log(newFav)
                       this.storage.importFavorites(newFav);
                     }
-                    /*else if(uri.endsWith(".csv")) {
-                      csv2json.fromFile(res).then(resJSON => {
+                    else if (url.endsWith(".csv")) {
+                      csv2json().fromString(res).then(resJSON => {
                         this.storage.importFavorites(resJSON);
                       })
-                    }*/
+                    }
                   })
                   .catch(err => {
                     console.log("Error read file export", err);
                   })
-                
-             })
-
+              })
           })
           .catch(err => {
             console.log("Error chooser", err)
