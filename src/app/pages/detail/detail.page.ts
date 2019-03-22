@@ -1,3 +1,4 @@
+import { DownloadService } from './../../providers/download/download.service';
 import { Series } from './../../models/series';
 import { Movie } from './../../models/movie';
 import { Media } from './../../models/media';
@@ -5,7 +6,6 @@ import { PosterService } from 'src/app/providers/poster/poster.service';
 import { OmdbService } from './../../providers/omdb/omdb.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { forkJoin } from 'rxjs';
 import { StorageService } from './../../providers/storage/storage.service';
 
 @Component({
@@ -17,14 +17,15 @@ export class DetailPage implements OnInit {
   info: Media;
   isSerie = true;
   seasons: Array<{ seasonNb: number }>;
-  poster: String;
+  poster: string;
   isFavori = false;
-  imdbId: String;
+  imdbId: string;
 
   constructor(private thisRouter: ActivatedRoute,
     private omdbService: OmdbService,
     private posterService: PosterService,
-    private storage: StorageService) { }
+    private storage: StorageService,
+    private download: DownloadService) { }
 
   ngOnInit() {
     this.thisRouter.params.subscribe(params => {
@@ -64,6 +65,10 @@ export class DetailPage implements OnInit {
   removeFavoris() {
     this.storage.remove(this.info);
     this.isFavori = false;
+  }
+
+  downloadPoster() {
+    this.download.downloadPoster(this.poster, this.info.title)
   }
 
 }

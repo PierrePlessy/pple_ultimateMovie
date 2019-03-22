@@ -8,10 +8,7 @@
 <ion-content padding>
   <ion-list class="name-episode" *ngFor="let epi of episodes">
     <ion-item [routerLink]="'/episode/' + epi.imdbID" routerDirection="forward">
-      {{epi.Title}}
-      {{epi.Released}}
-      {{epi.Episode}}
-      {{epi.imdbRating}}
+      {{epi.Title}} | Episode {{epi.Episode}} | {{epi.Released}} | Note : {{epi.imdbRating}}
     </ion-item>
 
   </ion-list>

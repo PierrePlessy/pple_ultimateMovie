@@ -1,3 +1,5 @@
+import { PosterService } from 'src/app/providers/poster/poster.service';
+import { Media } from './../../models/media';
 import { Platform } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
@@ -14,7 +16,8 @@ export class DownloadService {
   constructor(private platform: Platform,
     private fileTransfer: FileTransfer,
     private androidPermissions: AndroidPermissions,
-    private storage: StorageService) {
+    private storage: StorageService,
+    private poster: PosterService) {
     androidPermissions = new AndroidPermissions();
   }
 
@@ -24,10 +27,7 @@ export class DownloadService {
       this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE).then(res => {
         if (res.hasPermission) {
           const upload = this.fileTransfer.create();
-          upload.download(file, `${fileRoot.externalRootDirectory}/Download/favorites.${ext}`)
-            .then(foo => {
-              console.log("Download ok");
-            })
+          upload.download(file, `${fileRoot.externalRootDirectory}/Download/favorites.${ext}`);
         }
       })
     }
@@ -43,11 +43,9 @@ export class DownloadService {
     this.platform.ready().then(readySource => {
       let file = 'data:text/json;charser=utf8,';
       this.storage.getList().then(favList => {
-        console.log(favList)
         favList.forEach(element => {
           file += `${JSON.stringify(element)}\n`;
         });
-        console.log(file)
        this.export(file, 'json', readySource);
       })
     })
@@ -59,6 +57,23 @@ export class DownloadService {
         const file = `data:text/csv;charset=utf8,${json2csv.parse(favList)}`;
         this.export(file, 'csv', readySource);
       })
+    })
+  }
+
+  downloadPoster(poster: string, nameDownload: string) {
+    if(!poster) return
+    this.platform.ready().then(readySource => {
+      if (readySource == "android" || readySource == "cordova") {
+        const fileRoot = new File();
+        this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE).then(res => {
+          if (res.hasPermission) {
+            const upload = this.fileTransfer.create();
+            console.log(poster)
+            upload.download(poster, `${fileRoot.externalRootDirectory}/Download/blob.jpg`)
+            .then(foo => console.log("ok download poster", foo))
+          }
+        })
+      }
     })
   }
 

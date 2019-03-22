@@ -3,8 +3,7 @@ import { DownloadService } from './../../providers/download/download.service';
 import { Media } from './../../models/media';
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from './../../providers/storage/storage.service';
-import { AlertController, Platform } from '@ionic/angular';
-import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-favorites',
@@ -13,7 +12,6 @@ import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 })
 export class FavoritesPage implements OnInit {
   displayData: Array<Media>;
-  private permissions: AndroidPermissions = new AndroidPermissions();
 
   constructor(private storage: StorageService,
     private alertController: AlertController,
@@ -47,7 +45,7 @@ export class FavoritesPage implements OnInit {
           checked: true
         },
         {
-          name: 'csvRadio',
+          name: 'CSVRadio',
           type: 'radio',
           label: 'CSV',
           value: 'csv'
@@ -58,19 +56,16 @@ export class FavoritesPage implements OnInit {
           text: 'Cancel',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
+          handler: () => { }
         }, {
           text: 'Ok',
           handler: (data: string) => {
-            if (data == 'csv') {
-              this.download.exportCSV();
-            }
-            else {
+            if (data == 'json') {
               this.download.exportJSON();
             }
-            console.log('Confirm Ok');
+            else {
+              this.download.exportCSV();
+            }
           }
         }
       ]

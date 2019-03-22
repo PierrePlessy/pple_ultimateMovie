@@ -58,10 +58,6 @@ export class StorageService {
   }
 
   public importFavorites(list: Array<Object>) {
-    console.log("import !!! ", list);
-    /*const fav = new Array<Object>();
-    fav.push(list);
-    console.log(fav)*/
     this.storageApp.set('favoris', list);
   }
 }

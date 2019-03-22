@@ -2,43 +2,49 @@
   <ion-toolbar>
     <ion-back-button></ion-back-button>
     <ion-title *ngIf="info;">{{info.title}}</ion-title>
+    <ion-icon name="cloud-download" (click)="downloadPoster()"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <div class="detail" *ngIf="info;">
-    <img src="{{poster}}" />
-    <div class="principale">
-      <h2>{{info.title}}</h2>
-      <div>
-        <div>{{info.year}}</div>
-        <div>{{info.rated}}</div>
-        <div *ngIf="!isSerie;">{{info.runtime}}</div>
-        <ng-template [ngIf]="isFavori" [ngIfElse]="elseBlock">
-          <ion-icon name="star" (click)="removeFavoris()"></ion-icon>
-        </ng-template>
-        <ng-template #elseBlock>
-          <ion-icon name="star-outline" (click)="addFavoris()"></ion-icon>
-        </ng-template>
-      </div>
-    </div>
-    <div class="secondaire">
-      <div>{{info.plot}}</div>
-      <div>Genre : {{info.genre}}</div>
-      <div *ngIf="!isSerie;">Product : {{info.production}}</div>
-      <div>Actors : {{info.actors}}</div>
-      <div>Awards : {{info.awards}}</div>
-      <div>Note : {{info.imdbRating}} by {{info.imdbVotes}} votes</div>
-      <div><a href="{{info.website}}">{{info.website}}</a></div>
-    </div>
+  <ion-grid>
+    <ion-row align-items-center>
+      <ion-col col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4>
+        <div class="detail" *ngIf="info;">
+          <img src="{{poster}}" />
+          <div class="principale">
+            <h2>{{info.title}}</h2>
+            <div>
+              <div>{{info.year}}</div>
+              <div>{{info.rated}}</div>
+              <div *ngIf="!isSerie;">{{info.runtime}}</div>
+              <ng-template [ngIf]="isFavori" [ngIfElse]="elseBlock">
+                <ion-icon name="star" (click)="removeFavoris()"></ion-icon>
+              </ng-template>
+              <ng-template #elseBlock>
+                <ion-icon name="star-outline" (click)="addFavoris()">add fav</ion-icon>
+              </ng-template>
+            </div>
+          </div>
+          <div class="secondaire">
+            <div>{{info.plot}}</div>
+            <div>Genre : {{info.genre}}</div>
+            <div *ngIf="!isSerie;">Product : {{info.production}}</div>
+            <div>Actors : {{info.actors}}</div>
+            <div>Awards : {{info.awards}}</div>
+            <div>Note : {{info.imdbRating}} by {{info.imdbVotes}} votes</div>
+            <div><a href="{{info.website}}">{{info.website}}</a></div>
+          </div>
 
-    <div *ngIf="isSerie;">
-      <ion-list *ngFor="let season of seasons">
-        <ion-item [routerLink]="'/season/' + info.imdbID + '/' + season.seasonNb" routerDirection="forward">
-          <b>Season {{season.seasonNb}}</b>
-        </ion-item>
-      </ion-list>
-    </div>
-  </div>
-
+          <div *ngIf="isSerie;">
+            <ion-list *ngFor="let season of seasons">
+              <ion-item [routerLink]="'/season/' + info.imdbID + '/' + season.seasonNb" routerDirection="forward">
+                <b>Season {{season.seasonNb}}</b>
+              </ion-item>
+            </ion-list>
+          </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
