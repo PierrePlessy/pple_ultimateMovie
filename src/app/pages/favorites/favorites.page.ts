@@ -1,8 +1,10 @@
+import { UploadService } from './../../providers/upload/upload.service';
 import { DownloadService } from './../../providers/download/download.service';
 import { Media } from './../../models/media';
 import { Component, OnInit } from '@angular/core';
 import { StorageService } from './../../providers/storage/storage.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 
 @Component({
   selector: 'app-favorites',
@@ -11,9 +13,12 @@ import { AlertController } from '@ionic/angular';
 })
 export class FavoritesPage implements OnInit {
   displayData: Array<Media>;
+  private permissions: AndroidPermissions = new AndroidPermissions();
+
   constructor(private storage: StorageService,
     private alertController: AlertController,
-    private download: DownloadService) { }
+    private download: DownloadService,
+    private upload: UploadService) { }
 
   ngOnInit() {
     this.getList()
@@ -74,8 +79,7 @@ export class FavoritesPage implements OnInit {
     await alert.present();
   }
 
-  writeCSVFile() {
-    console.log("choose json for work")
+  importFavorites() {
+    this.upload.uploadFavorites();
   }
-
 }

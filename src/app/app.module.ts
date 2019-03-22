@@ -1,3 +1,4 @@
+import { File } from '@ionic-native/file/ngx';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -14,6 +15,9 @@ import { PosterService } from './providers/poster/poster.service';
 import { OmdbService } from './providers/omdb/omdb.service';
 import { StorageService } from './providers/storage/storage.service';
 import { DownloadService } from './providers/download/download.service';
+import { UploadService } from './providers/upload/upload.service';
+import { FilePath } from '@ionic-native/file-path/ngx';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +31,9 @@ import { DownloadService } from './providers/download/download.service';
     OmdbService,
     StorageService,
     DownloadService,
+    UploadService,
+    FilePath,
+    File,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

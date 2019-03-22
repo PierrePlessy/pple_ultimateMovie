@@ -3,7 +3,7 @@
     <name>MyApp</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content original-src="index.html" src="http://192.168.1.84:8100" />
+    <content original-src="index.html" src="http://10.69.0.241:8100" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -95,6 +95,8 @@
     <plugin name="cordova-plugin-file-transfer" spec="1.7.1" />
     <plugin name="cordova-plugin-android-permissions" spec="1.0.0" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
-    <allow-navigation href="http://192.168.1.84:8100" sessionid="38b0cd59" />
+    <plugin name="cordova-plugin-filechooser" spec="1.2.0" />
+    <plugin name="cordova-plugin-filepath" spec="1.5.1" />
+    <allow-navigation href="http://10.69.0.241:8100" sessionid="08d74fc6" />
     <engine name="android" spec="7.1.4" />
 </widget>

@@ -56,4 +56,8 @@ export class StorageService {
       this.storageApp.set('favoris', val);
     })
   }
+
+  public importFavorites(list : JSON) {
+    console.log(list);
+  }
 }

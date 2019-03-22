@@ -32,7 +32,6 @@ export class DownloadService {
       const a = document.createElement('a');
       a.href = file;
       a.download = `favorites.${ext}`;
-      document.getElementById('download').appendChild(a);
       a.click();
     }
   }
