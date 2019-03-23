@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Favorites</ion-title>
+    <div class=icons>
+      <ion-icon name="cloud-download" (click)='importFavorites()'></ion-icon>
+      <ion-icon name="cloud-upload" (click)="chooseExport()"></ion-icon>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="displayData;">
+    <ion-grid>
+      <ion-row>
+
+        <ion-list *ngFor="let data of displayData">
+
+          <ion-col col-12 col-sm-12 col-md-6 col-lg-3>
+            <ion-card [routerLink]="'/detail/' + data.imdbID" routerDirection="forward">
+              <img class="image-card" src="{{data.poster}}" />
+              <ion-card-content class="overlay-card">
+                <div class="card-title">{{data.title}}</div>
+                <div class="subtitle">
+                  <div>{{data.type}}</div>
+                  <div>{{data.year}}</div>
+                  <div></div>
+                  <ng-template>
+                    <ion-icon name="star"></ion-icon>
+                  </ng-template>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+
+        </ion-list>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

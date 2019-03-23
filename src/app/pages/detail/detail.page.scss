@@ -1,0 +1,37 @@
+.detail {
+    > img {
+        margin-bottom: -50%;
+    }
+
+    > .principale {
+        position: relative;
+        background-color: rgba(0, 0, 0, 0.75);
+        padding: 1rem;
+        color: white;
+        > div {
+            display: flex;
+            justify-content: space-around;
+        }
+    }
+
+    > .secondaire {
+        position: relative;
+        background-color: rgba(0,0,0,0.75);
+        padding: 1rem;
+        color: white;
+
+        > div {
+            padding-bottom: 0.75rem;
+        }
+    }
+}
+
+.name-episode {
+    display: flex;
+    flex-direction: column;
+}
+
+ion-icon {
+    float: right;
+    font-size: 1.5rem;
+}

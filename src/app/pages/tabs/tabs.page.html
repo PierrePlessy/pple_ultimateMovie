@@ -1,0 +1,16 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home/movie" (click)="update('movie')" [selected]="selected == 'movie'">
+
+      <ion-label>Movies</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="home/series" (click)="update('serie')" [selected]="selected == 'serie'">
+      <ion-label>Series</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="favorites" (click)="update('favorites')" [selected]="selected == 'favorites'">
+      <ion-label>Favorites</ion-label>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>
